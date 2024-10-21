@@ -1,0 +1,39 @@
+.weather {
+    min-height: 100vh;
+    width: 100%;
+    background-image: url('./assets/mist.jpg');
+    background-repeat: no-repeat;
+    background-color: blue;
+    background-size:cover
+  }
+  
+.weather .overlay {
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.535);
+}
+
+.overlay h1 {
+  color: rgba(255, 255, 255, 0.819);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.weather .widget {
+  justify-content: center;
+  gap: 20px;
+  min-height: 50vh;
+  width: 100%;
+  max-width: 550px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.595);
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.34);
+}
+  
+.widget .defaultMess {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}

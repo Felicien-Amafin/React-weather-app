@@ -1,0 +1,29 @@
+.weatherDatas {
+    width: 100%;
+    gap: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+}
+
+.cityTemp h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.cityTemp p {
+    text-align: center;
+}
+
+.feelsLike h3 {
+    margin-bottom: 10px; 
+}
+
+.tempPrecisions {
+    width: 100%;
+    gap: 10px;
+    justify-content: space-evenly;
+}
+
+.tempPrecisions li {
+    list-style: none;
+}
