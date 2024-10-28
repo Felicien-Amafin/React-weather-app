@@ -12,21 +12,21 @@ export default function Weather() {
     const getWeather = async (url)=> {
         try {
             setIsLoading(true);
-
             const response = await fetch(url);
-
-            if(response.status !== 200) {
-                setData(false);
-                alert(`Can't find weather for this city's name.`)
-            } else {
-               const data = await response.json();
-               setData(data); 
+            
+            if(!response.ok) {
+                throw new Error();
             }
             
-            setIsLoading(false);
+            const data = await response.json();
+            setData(data);
+
         } catch (error) {
-            alert(error)
+            const mess = error.message || 'Failed to load data';
+            alert(mess);
         }
+
+        setIsLoading(false);
     }
 
     useEffect(()=> {
@@ -36,7 +36,7 @@ export default function Weather() {
                 const lon = position.coords.longitude;
                 const API_KEY = import.meta.env.VITE_API_KEY;
                 const URL = `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${API_KEY}`;
-
+        
                 getWeather(URL);
             }
         
@@ -50,6 +50,7 @@ export default function Weather() {
                 alert('Geolocation is not supported by your browser.Please enter a city name.');
             }
         }
+
         getLocalWeather();
     }, [])
 
