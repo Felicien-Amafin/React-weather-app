@@ -1,46 +1,37 @@
 import { useEffect, useState } from "react";
+import { getWeather } from "../../utils/weather";
 import speClasses from './Weather.module.css';
 import SearchBubble from "../SearchBubble/SearchBubble";
 import WeatherDatas from "../WeatherDatas/WeatherDatas";
 import '../../index.css';
 
+
 export default function Weather() {
-    const [data, setData] = useState(false);
+    const [weatherData, setWeatherData] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     let content;
+   
+    const handleWeatherData = async (url)=> {
+        setIsLoading(true);
 
-    const getWeather = async (url)=> {
-        try {
-            setIsLoading(true);
-            const response = await fetch(url);
-            
-            if(!response.ok) {
-                throw new Error();
-            }
-            
-            const data = await response.json();
-            setData(data);
-
-        } catch (error) {
-            const mess = error.message || 'Failed to load data';
-            alert(mess);
-        }
+        const data = await getWeather(url);
+        data ? setWeatherData(data) : null;
 
         setIsLoading(false);
     }
 
     useEffect(()=> {
         function getLocalWeather() {
-            function success(position) {
+            const success = (position)=> {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
                 const API_KEY = import.meta.env.VITE_API_KEY;
                 const URL = `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${API_KEY}`;
         
-                getWeather(URL);
+                handleWeatherData(URL);
             }
-        
-            function error(error) {
+            
+            const error = (error)=> {
                 alert(error.message);
             }
         
@@ -54,15 +45,15 @@ export default function Weather() {
         getLocalWeather();
     }, [])
 
-    if(data) {
-        content = <WeatherDatas weather={data}/>;
+    if(weatherData) {
+        content = <WeatherDatas weather={weatherData}/>;
     }
 
-    if(!data) { content = <p className={speClasses.defaultMess}>Please enter a city name</p> }
+    if(!weatherData) { content = <p className={speClasses.defaultMess}>Please enter a city name</p> }
 
     if(isLoading) { content = <p className={speClasses.defaultMess}>Loading weather, please wait...</p> }
 
-    const backgrdImg = data ? data.weather[0].icon : 'defaultImg';
+    const backgrdImg = weatherData ? weatherData.weather[0].icon : 'defaultImg';
 
     return <main 
             className={speClasses.weather}
@@ -72,7 +63,7 @@ export default function Weather() {
             <h1>Daily weather</h1>
             <section className={`${speClasses.widget} flexColCenter`}>
                 <SearchBubble
-                    onSearch={getWeather}
+                    onSearch={handleWeatherData}
                 />
                 {content}
             </section>
