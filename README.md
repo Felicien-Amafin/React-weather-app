@@ -32,5 +32,5 @@ Simple React weather app using useState, useEffect, useRef, hooks. For weather d
 ## Installation & Testing
 <br/>
 
-`To install the project: first run "npm install". To launch the project in local server: run "npm run dev".`
+`To install the project: first run "npm install". To launch the project in local server run: "npm run dev".`
 <br/>
